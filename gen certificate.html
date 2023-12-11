@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Generate Certificate</title>
+    <link rel="stylesheet" href="main.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.debug.js"></script>
+  </head>
+  <body>
+    <p>Name</p>
+    <input id = "name" oninput="document.getElementById('correct').className='no-solution';document.getElementById('correct').innerHTML = ''"></input>
+    <p>Problem ID</p>
+    <input id = "problem-id" oninput="document.getElementById('correct').className='no-solution';document.getElementById('correct').innerHTML = ''"></input>
+    <p>Solution</p>
+    <input id="solution" oninput="document.getElementById('correct').className='no-solution';document.getElementById('correct').innerHTML = ''"></input>
+    <br>
+    <br>
+    <button onclick="
+    var code = gen_code(
+        document.getElementById('solution').value,
+        document.getElementById('problem-id').value,
+        document.getElementById('name').value,
+    );
+    console.log(code);
+    if (code) {
+    document.getElementById('correct').className='valid-code';
+    document.getElementById('correct').innerHTML = 'correct solution ✓ <br><br>code: <code>'+code+'</code>'
+} else {
+    document.getElementById('correct').className='valid-code';
+    document.getElementById('correct').innerHTML = 'incorrect solution ✗'
+    }
+    ">Generate Certificate</button>
+    <br>
+    <br>
+    <p class="untested" id = "correct"></p>
+    <button onclick = "
+    var code = gen_code(
+        document.getElementById('solution').value,
+        document.getElementById('problem-id').value,
+        document.getElementById('name').value,
+    );
+        var doc = new jsPDF()
+        doc.text('Certificate', 10, 10)
+        doc.text('Name: '+document.getElementById('name').value, 10, 20)
+        doc.text('Problem ID: '+document.getElementById('problem-id').value, 10, 30)
+        doc.text('Code: '+code, 10, 40)
+        doc.save('certificate'+document.getElementById('problem-id').value+'.pdf')
+    ">download pdf</button>
+    <div id="output"></div>
+    <script type="module">
+      import init, {gen_code} from '/pkg/semi_secure.js';
+
+      async function run() {
+        await init();
+    
+        window.gen_code = gen_code;
+      }
+
+      run();
+    </script>
+        <a class="home" href = "index.html">home</a>
+
+  </body>
+</html>

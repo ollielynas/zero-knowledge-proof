@@ -1,0 +1,26 @@
+html {
+    height: 100%;
+}
+
+
+
+body {
+    border-top: 2em rgb(145, 145, 239) solid;
+    height: max-content;
+    padding: 1em;
+}
+
+.home {
+    position: absolute;
+    bottom: 1em;
+    left: 1em;
+    z-index: 10;
+}
+
+
+#correct ~ button {
+    display: none;
+}
+.valid-code ~ button {
+    display: block !important;
+}
