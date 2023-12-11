@@ -1,0 +1,14 @@
+{
+  "name": "semi-secure",
+  "version": "0.1.0",
+  "files": [
+    "semi_secure_bg.wasm",
+    "semi_secure.js",
+    "semi_secure.d.ts"
+  ],
+  "module": "semi_secure.js",
+  "types": "semi_secure.d.ts",
+  "sideEffects": [
+    "./snippets/*"
+  ]
+}
