@@ -8,27 +8,29 @@
 
   </head>
   <body>
-    <p>Name</p>
-    <input id = "name" oninput="document.getElementById('valid').className='untested';document.getElementById('valid').innerHTML = 'click to validate'"></input>
-    <p>Problem ID</p>
-    <input id = "problem-id" oninput="document.getElementById('valid').className='untested';document.getElementById('valid').innerHTML = 'click to validate'"></input>
-    <p>Certificate Code</p>
-    <input id="code" oninput="document.getElementById('valid').className='untested';document.getElementById('valid').innerHTML = 'click to validate'"></input>
+    <div class="input">
+    <input placeholder="Name" id = "name" oninput="document.getElementById('valid').className='untested';document.getElementById('valid').innerHTML = 'click to validate'"></input>
+    <br>
+    <input placeholder="Problem ID" id = "problem-id" oninput="document.getElementById('valid').className='untested';document.getElementById('valid').innerHTML = 'click to validate'"></input>
+    <br>
+    <input placeholder="Code" id="code" oninput="document.getElementById('valid').className='untested';document.getElementById('valid').innerHTML = 'click to validate'"></input>
     <br>
     <br>
     <button onclick="
     if (ver_code(
-        document.getElementById('code').value,
-        document.getElementById('problem-id').value,
-        document.getElementById('name').value,
-    )) {
-    document.getElementById('valid').className='valid-code';
-    document.getElementById('valid').innerHTML = 'valid ✓'
-} else {
-    document.getElementById('valid').className='valid-code';
-    document.getElementById('valid').innerHTML = 'invalid ✗'
-    }
-    ">Verify</button>
+      document.getElementById('code').value.replaceAll(' ', ''),
+      document.getElementById('problem-id').value.replaceAll(' ', ''),
+      document.getElementById('name').value,
+      )) {
+        document.getElementById('valid').className='valid-code';
+        document.getElementById('valid').innerHTML = 'valid ✓'
+      } else {
+        document.getElementById('valid').className='valid-code';
+        document.getElementById('valid').innerHTML = 'invalid ✗'
+      }
+      ">Verify</button>
+      </div>
+  <div class="output">
     <br>
     <br>
     <p class="untested" id = "valid">click to validate</p>
@@ -44,6 +46,6 @@
       run();
     </script>
         <a class="home" href = "index.html">home</a>
-
+</div>
   </body>
 </html>

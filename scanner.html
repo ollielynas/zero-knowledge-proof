@@ -7,9 +7,9 @@
     <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
   </head>
   <body>
-    <h1>Name</h1>
+    <div class="input">
     <div id="reader" width="600px"></div>
-
+    </div>
     <script>
         function onScanSuccess(decodedText, decodedResult) {
   // handle the scanned code as you like, for example:
@@ -29,5 +29,7 @@ let html5QrcodeScanner = new Html5QrcodeScanner(
   /* verbose= */ false);
 html5QrcodeScanner.render(onScanSuccess, onScanFailure);
     </script>
+            <a class="home" href = "index.html">home</a>
+
   </body>
 </html>

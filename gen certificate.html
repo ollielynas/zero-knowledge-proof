@@ -8,18 +8,19 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
   </head>
   <body>
-    <p>Username</p>
-    <input id = "name" oninput="document.getElementById('correct').className='no-solution';document.getElementById('correct').innerHTML = ''"></input>
-    <p>Problem ID</p>
-    <input id = "problem-id" oninput="document.getElementById('correct').className='no-solution';document.getElementById('correct').innerHTML = ''"></input>
-    <p>Solution</p>
-    <input id="solution" oninput="document.getElementById('correct').className='no-solution';document.getElementById('correct').innerHTML = ''"></input>
+    <div class="input">
+    <input placeholder="Username" id = "name" oninput="document.getElementById('correct').className='no-solution';document.getElementById('correct').innerHTML = ''"></input>
+    <br>
+    <input placeholder="Problem ID" id = "problem-id" oninput="document.getElementById('correct').className='no-solution';document.getElementById('correct').innerHTML = ''"></input>
+    <br>
+    <input placeholder="Solution" id="solution" oninput="document.getElementById('correct').className='no-solution';document.getElementById('correct').innerHTML = ''"></input>
     <br>
     <br>
     <button onclick="
+    document.getElementById('problem-id').value = document.getElementById('problem-id').value.replaceAll(' ', '')
     var code = gen_code(
         document.getElementById('solution').value,
-        document.getElementById('problem-id').value,
+        document.getElementById('problem-id').value.replaceAll(' ', ''),
         document.getElementById('name').value,
     );
     console.log(code);
@@ -31,21 +32,29 @@
     document.getElementById('correct').innerHTML = 'incorrect solution ✗'
     }
     ">Generate</button>
+    </div>
     <br>
     <br>
+    <div class="output">
     <p class="untested" id = "correct"></p>
     <button onclick = "
     var code = gen_code(
         document.getElementById('solution').value,
-        document.getElementById('problem-id').value,
+        document.getElementById('problem-id').value.replaceAll(' ', ''),
         document.getElementById('name').value,
     );
         var doc = new jsPDF()
         doc.text('Certificate', 10, 10)
         doc.text('Name: '+document.getElementById('name').value, 10, 20)
-        doc.text('Problem ID: '+document.getElementById('problem-id').value, 10, 30)
-        doc.text('Code: '+code, 10, 40)
-        doc.save('certificate'+document.getElementById('problem-id').value+'.pdf')
+
+        let splitId = doc.splitTextToSize('Problem ID: '+document.getElementById('problem-id').value.replaceAll(' ', ''), 180);
+        console.log(splitId);
+        doc.text(splitId, 10, 30, { maxWidth: 41});
+
+        let splitCode = doc.splitTextToSize('Code: '+code, 180);
+
+        doc.text(splitCode, 10, 30 + 10 * splitId.length);
+        doc.save('certificate'+document.getElementById('problem-id').value+'.pdf');
     ">download pdf</button>
     <br>
 
@@ -66,10 +75,20 @@
         code+
         ';'
         );
-        console.log(url);
-        document.getElementById('qrcode').innerHTML ='';
-        var qrc = new QRCode(document.getElementById('qrcode'), url);
         
+        console.log(url, code);
+        document.getElementById('qrcode').innerHTML ='';
+        // var qrc = new QRCode(document.getElementById('qrcode'), url);
+
+        var qrcode = new QRCode('qrcode', {
+        text: url.replaceAll(' ','%20'),
+        width: 256,
+        height: 256,
+        colorDark : '#000000',
+        colorLight : '#ffffff',
+        correctLevel : QRCode.CorrectLevel.L
+        });
+      
     ">gen qr code</button>
     <br>
     <div id="qrcode"></div>
@@ -89,6 +108,6 @@
       run();
     </script>
         <a class="home" href = "index.html">home</a>
-
+    </div>
   </body>
 </html>

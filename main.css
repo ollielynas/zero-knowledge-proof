@@ -1,13 +1,28 @@
 html {
     height: 100%;
+    background-color: whitesmoke;
 }
 
+*, code {
+    max-width: 100dvw;
+}
 
+code {
+    line-break: anywhere;
+}
+
+input {
+    max-width: 80dvw;
+}
 
 body {
     border-top: 2em rgb(145, 145, 239) solid;
     height: max-content;
     padding: 1em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1em;
 }
 
 .home {
@@ -15,6 +30,10 @@ body {
     bottom: 1em;
     left: 1em;
     z-index: 10;
+    border: 1.5px black solid;
+    padding: 0.3em;
+    background-color: white;
+    border-radius: 0.1em;
 }
 
 
@@ -25,3 +44,63 @@ body {
     display: block !important;
 }
 
+#qrcode:empty+ #downloadqr{
+    display:none
+}
+
+input {
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px rgb(168, 168, 168) solid;
+    padding: 0.5em;
+    font-size: large;
+}
+
+input:focus {
+    outline: none;
+    background-color: rgba(0, 128, 0, 0.062);
+}
+
+
+.input, .output {
+    padding: 1em;
+    border: 1.5px black solid;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    background-color: white !important;
+}
+
+
+.input > *, .output > * {
+    width: fit-content;
+}
+
+
+.input:empty, .output:empty {
+    display: none;
+}
+
+
+.input::before, .output::before {
+    transform: translate(0,-1.8em);
+    background-color: white;
+    width: fit-content;
+    padding: 0.2em;
+    border: 1.5px solid black;
+    border-radius: 0.3em;
+
+}
+.input::before {
+    content: "Input";
+}
+.output::before {
+    content: "Output";
+}
+
+body > a {
+    border: 1.5px solid black;
+    padding: 0.3em;
+    background-color: white;
+    
+}

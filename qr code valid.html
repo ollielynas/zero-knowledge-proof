@@ -8,6 +8,7 @@
     <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
   </head>
   <body>
+    <div class="input">
     <a href="./scanner.html">Go Back </a>
     <p>Name</p>
     <input disabled id = "name" oninput="document.getElementById('valid').className='untested';document.getElementById('valid').innerHTML = 'click to validate'"></input>
@@ -15,9 +16,10 @@
     <input disabled id = "problem-id" oninput="document.getElementById('valid').className='untested';document.getElementById('valid').innerHTML = 'click to validate'"></input>
     <p>Certificate Code</p>
     <input disabled id="code" oninput="document.getElementById('valid').className='untested';document.getElementById('valid').innerHTML = 'click to validate'"></input>
-
+    </div>
     <br>
     <br>
+    <div class="output">
     <p class="untested" id = "valid">loading...</p>
 
     <div id="output"></div>
@@ -55,6 +57,6 @@
       run();
     </script>
         <a class="home" href = "index.html">home</a>
-
+    </div>
   </body>
 </html>
