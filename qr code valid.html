@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <meta charset="utf-8">
+    <title>Verify QR code</title>
+            <link rel="stylesheet" href="main.css"/>
+    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+  </head>
+  <body>
+    <a href="./scanner.html">Go Back </a>
+    <p>Name</p>
+    <input disabled id = "name" oninput="document.getElementById('valid').className='untested';document.getElementById('valid').innerHTML = 'click to validate'"></input>
+    <p>Problem ID</p>
+    <input disabled id = "problem-id" oninput="document.getElementById('valid').className='untested';document.getElementById('valid').innerHTML = 'click to validate'"></input>
+    <p>Certificate Code</p>
+    <input disabled id="code" oninput="document.getElementById('valid').className='untested';document.getElementById('valid').innerHTML = 'click to validate'"></input>
+
+    <br>
+    <br>
+    <p class="untested" id = "valid">loading...</p>
+
+    <div id="output"></div>
+    <script type="module">
+      import init, {ver_code} from './pkg/semi_secure.js';
+
+      async function run() {
+        await init();
+        window.ver_code = ver_code;
+
+
+        
+            var matches = /code=([^&#=]*);/.exec(window.location.search);
+            var param1 = matches[1];
+            var matches = /id=([^&#=]*);/.exec(window.location.search);
+            var param2 = matches[1];
+            var matches = /name=([^&#=]*);/.exec(window.location.search);
+            var param3 = matches[1];
+            console.log(param1, param2, param3);
+            document.getElementById('code').value = param1;
+            document.getElementById('problem-id').value = param2;
+            document.getElementById('name').value = param3;
+            if (ver_code(
+        param1,
+        param2,
+        param3,
+    )) {
+    document.getElementById('valid').className='valid-code';
+    document.getElementById('valid').innerHTML = 'valid ✓'
+} else {
+    document.getElementById('valid').className='valid-code';
+    document.getElementById('valid').innerHTML = 'invalid ✗'
+    }
+      }
+      run();
+    </script>
+        <a class="home" href = "index.html">home</a>
+
+  </body>
+</html>
